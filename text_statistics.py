@@ -1,4 +1,4 @@
-# Author: YOUR NAME
+# Author: Kale Fordham
 def count_personal_pronouns(s):
     """Count personal pronouns I, my, me, you, we in string s
 
@@ -9,8 +9,13 @@ def count_personal_pronouns(s):
     """
 
     #TODO: implement function
-    
-    return None 
+    count = 0
+
+    for word in s.split():
+        if word == 'i' or 'I' or 'my' or 'My' or 'me' or 'Me' or 'you' or 'You' or 'we' or 'We':
+            count += 1
+
+    return count
 
 def number_of_words_in_document(s):
     """Counts number of words (seprated by whitespace) in string s
@@ -20,8 +25,11 @@ def number_of_words_in_document(s):
     """
 
     #TODO: implement function
+    count = 0
+    for words in s.split():
+        count += 1
 
-    return None
+    return count
 
 def number_of_sentences(s):
     """Counts number of sentences (seprated by '.', '!' or '?') in string s
@@ -31,8 +39,12 @@ def number_of_sentences(s):
     """
 
     #TODO: implement function
+    count = 0
+    for word in s.split():
+        if word == '.' or '!' or '?':
+            count += 1
 
-    return None
+    return count
 
 def print_text_statistics(filename):
     """Prints sentence, word, word-per-sentence and personal pronoun count
@@ -43,9 +55,13 @@ def print_text_statistics(filename):
     returns: None
     """
     #TODO: Read text from UTF-8 encoded file. 
-    
-    #TODO: Print results, use functions above for computations
+    fin = open(filename, 'r')
+    lines = fin.readlines()
 
+    #TODO: Print results, use functions above for computations
+    count_personal_pronouns(lines)
+    number_of_words_in_document(lines)
+    number_of_sentences(lines)
 
 if __name__ == '__main__':
     
