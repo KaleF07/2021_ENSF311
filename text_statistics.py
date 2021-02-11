@@ -10,9 +10,15 @@ def count_personal_pronouns(s):
 
     #TODO: implement function
     count = 0
-
-    for word in s.split():
-        if word == 'i' or 'I' or 'my' or 'My' or 'me' or 'Me' or 'you' or 'You' or 'we' or 'We':
+    s_new = s.lower()
+    s_new = s_new.replace('.',' ')
+    s_new = s_new.replace(',',' ')
+    s_new = s_new.replace('?',' ')
+    s_new = s_new.replace('!',' ')
+    
+    
+    for word in s_new.split():
+        if (word == 'i') or (word == 'my') or (word == 'me') or (word == 'you') or (word == 'we'):
             count += 1
 
     return count
@@ -27,7 +33,8 @@ def number_of_words_in_document(s):
     #TODO: implement function
     count = 0
     for words in s.split():
-        count += 1
+        if (words != '.') or (words != ',') or (words != '?') or (words != '!'):
+            count += 1
 
     return count
 
@@ -40,8 +47,8 @@ def number_of_sentences(s):
 
     #TODO: implement function
     count = 0
-    for word in s.split():
-        if word == '.' or '!' or '?':
+    for word in s:
+        if (word == '.') or (word == '!') or (word == '?'):
             count += 1
 
     return count
@@ -55,13 +62,16 @@ def print_text_statistics(filename):
     returns: None
     """
     #TODO: Read text from UTF-8 encoded file. 
-    fin = open(filename, 'r')
-    lines = fin.readlines()
+    fin = open(filename, mode = 'r', encoding = 'utf-8')
+    string = ""
+    for ele in fin:
+        string += ele
 
     #TODO: Print results, use functions above for computations
-    count_personal_pronouns(lines)
-    number_of_words_in_document(lines)
-    number_of_sentences(lines)
+    print('Number of words in document {}'.format( number_of_words_in_document(string)) )
+    print('Number of sentences in document {}'.format( number_of_sentences(string)) )
+    print('Number of words per sentence {}'.format( round(number_of_words_in_document(string)/number_of_sentences(string), 2)) )
+    print('Number of personal pronouns {}'.format( count_personal_pronouns(string)) )
 
 if __name__ == '__main__':
     

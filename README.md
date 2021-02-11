@@ -1,7 +1,7 @@
 # a1-text_statistics
 Reading text from file to print simple statistics using string methods
 
-Author: *YOUR NAME*
+Author: Kale Fordham
 
 # Problem statement
 According to Wikipedia, The Feynman Lectures on Physics are likely the most popular physics books ever written. We would like to understand better why that is. Maybe it is related to how the text is structured. The goal of this exercise is to analyze the text in _Chapter 1.1 Introduction_ of the Feynman Lectures available here http://www.feynmanlectures.caltech.edu/I_01.html
@@ -30,8 +30,12 @@ In the section *Reflection*, include what you liked or disliked; found interesti
 Make sure final version of `text_statistics.py`, `feynman.txt`, `README.md`, `screenshot-program.png` and `screenshot-tests.png` are committed to git and pushed to github. 
 
 # How to run this program
-*Add your instructions and screenshot here*
+To run this program, first check to see if the test works properly and passes all the tests. In order to check, enter 'pytest -v text_statistics_test.py' into the command line in the terminal. The output should show as follows:
+![Example screenshot](Test_Running.png)
+
+After showing a successful run of the test, the program can now be run. To run the program, enter 'python text_statistics.py' into the command line. The code should work, and the following output should look like so:
+![Example screenshot](text_statistics_run.png)
 
 # Reflection
-*Add your reflection here*
+What I liked most about this project was the idea of taking example texts and finding out any important information we need about it. This shows that we can also apply filters to pieces of text to find keywords or any other information. Something I found interesting was the tests themselves, as it shows that we can take a test of our program and see where it goes wrong or works rather than running the actual program and hoping for the best.
 
