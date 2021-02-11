@@ -30,10 +30,10 @@ In the section *Reflection*, include what you liked or disliked; found interesti
 Make sure final version of `text_statistics.py`, `feynman.txt`, `README.md`, `screenshot-program.png` and `screenshot-tests.png` are committed to git and pushed to github. 
 
 # How to run this program
-To run this program, first check to see if the test works properly and passes all the tests. In order to check, enter 'pytest -v text_statistics_test.py' into the command line in the terminal. The output should show as follows:
+To run this program, first check to see if the test works properly and passes all the tests. In order to check, enter `pytest -v text_statistics_test.py` into the command line in the terminal. The output should show as follows:
 ![Example screenshot](Test_Running.png)
 
-After showing a successful run of the test, the program can now be run. To run the program, enter 'python text_statistics.py' into the command line. The code should work, and the following output should look like so:
+After showing a successful run of the test, the program can now be run. To run the program, enter `python text_statistics.py` into the command line. The code should work, and the following output should look like so:
 ![Example screenshot](text_statistics_run.png)
 
 # Reflection
