@@ -1,0 +1,33 @@
+<!--Author: Kale Fordham-->
+
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        head {
+            text-align: center;
+        }
+    </style>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <p>
+            <a href="/">Home</a>
+        </p>
+        <form method="POST">
+            Enter select dates, or leave blank.<br>
+            <strong>Must be in format:</strong> (yyyy-mm-dd)<br>
+            <label for="sdate">Start Date:</label><br>
+            <input type="text" name="sdate"><br>
+            <label for="edate">End Date:</label><br>
+            <input type="text" name="edate"><br>
+            <input type="Submit" value="Select Dates">
+            <input type="Submit" value="Reset">
+        </form>
+        {{ image_tag | safe}}
+    </body>
+</html>
