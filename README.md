@@ -1,41 +1,158 @@
-# a1-text_statistics
-Reading text from file to print simple statistics using string methods
-
-Author: Kale Fordham
+# a3-data_frame_cli
+Create a command line interface to common Pandas DataFrame methods for inspecting csv files.
 
 # Problem statement
-According to Wikipedia, The Feynman Lectures on Physics are likely the most popular physics books ever written. We would like to understand better why that is. Maybe it is related to how the text is structured. The goal of this exercise is to analyze the text in _Chapter 1.1 Introduction_ of the Feynman Lectures available here http://www.feynmanlectures.caltech.edu/I_01.html
+With data in a csv file, Pandas DataFrame methods can be used for inspection. These are common steps:
+1. Check dimension `df.shape`
+2. Peek at the first rows `df.head()`
+3. Get info on data types and missing values `df.info()`
+4. Summarize columns `df.describe()`
+5. Get unique values of a column `df[col].unique()`
+6. Plot histogram of values in a column `df[col].hist()`, either display or save plot to file.
 
-Design a program that reads this section from the text file `feynman.txt`, uses functions outlined in `text_statistics.py`, and prints the following information:
-- Number of words in the text
-- Number of sentences in the text
-- Average number of words per sentence
-- Number of personal pronouns: I, me, my, you, we
 
-The output of the program needs to be:
+The goal is to write a Python program with a command line interface able to load a csv file and provide command line options for the steps outlined above. In essence, the program is a wrapper for Pandas DataFrame methods.
+
+The program:
+- takes a filename as a required argument and prints the dimension of the data loaded. 
+- provides optional arguments for steps 2., 3. and 4. (see above). 
+- (optional) provides optional arguments for steps 5. and 6. (see above).
+
+The final program provides the following interface:
+
 ```
-Number of words in document 1071
-Number of sentences in document 53
-Number of words per sentence 20.21
-Number of personal pronouns 36
+$ python data_frame_cli.py -h
+usage: data_frame_cli.py [-h] [-t] [-i] [-d [COLUMN_NAME]]
+                             [-u COLUMN_NAME] [-p COLUMN_NAME] [-o FILENAME]
+                             csv_filename
+
+Inspecting csv files with Pandas DataFrame methods.
+
+positional arguments:
+  csv_filename          A (nice) csv file.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -t, --head            print dataframe head.
+  -i, --info            print dataframe info.
+  -d [COLUMN_NAME], --describe [COLUMN_NAME]
+                        Print dataframe statistics. If COLUMN_NAME provided,
+                        print statistics of selected column only.
 ```
+
+Note that step 4 _summarizing columns_ using `df.describe()` is activated with `-d` or `--describe`. This argument can, optionally, take a column name, in which case `df.describe()` is applied to the corresponding column only, e.g. `-d weight` would print summary statistics of the `weight` column only (if the column exists).
 
 # What to do
-Implement the functions as outlined in `text_statistics.py` to produce the output shown above. Document your code. Follow the [style guide](StyleGuide.md). Use git to track your changes. Commit working portions of code as you develop. Test your code by running `pytest -v text_statistics_test.py`. All tests should pass.
+The file `data_frame_cli.py` provides initial code that creates an `ArgumentParser` for the required filename argument, followed by printing the data's shape, if loading was successful. Extend the code in this file and implement command line options for steps 2., 3. and 4. as outlined above. Optionally implement steps 5. and 6.
 
-Create a screenshot of your program running. Create a second screenshot of test running. Edit `README.md` (this file) and include the screenshots and instructions how to run your code/tests in the _How to run this program_ section below (similar to `a0-classroom`). 
+Follow the [Style Guide](StyleGuide.md), and use git and github to track your changes.
+
+Edit `README.md` (this file) and include screenshots of your final program in the _Program documentation_ section below. Use `chicken.csv` as sample data and match the screenshot to each of the documentation headings.
+
+In the section *Test results*, include a screenshot of running `pytest`.
 
 In the section *Reflection*, include what you liked or disliked; found interesting, confusing, challenging, motivating while working on this assignment.
 
-Make sure final version of `text_statistics.py`, `feynman.txt`, `README.md`, `screenshot-program.png` and `screenshot-tests.png` are committed to git and pushed to github. 
+Make sure final version of your code and documentation files are committed to git and pushed to github. 
 
-# How to run this program
-To run this program, first check to see if the test works properly and passes all the tests. In order to check, enter `pytest -v text_statistics_test.py` into the command line in the terminal. The output should show as follows:
-![Example screenshot](Test_Running.png)
+# Program documentation
 
-After showing a successful run of the test, the program can now be run. To run the program, enter `python text_statistics.py` into the command line. The code should work, and the following output should look like so:
-![Example screenshot](text_statistics_run.png)
+## Getting information on data in csv file (`-i`)
+```bash
+$ python data_frame_cli.py chicken.csv -i
+
+*** df.shape ***
+
+chicken.csv loaded with shape (360, 5)
+
+*** df.info() ***
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 360 entries, 0 to 359
+Data columns (total 5 columns):
+week      360 non-null int64
+age       360 non-null int64
+diet      360 non-null object
+weight    360 non-null float64
+eggs      360 non-null int64
+dtypes: float64(1), int64(3), object(1)
+memory usage: 14.2+ KB
+```
+
+![Example Screenshot](info_screenshot.png)
+
+## Printing the first 5 rows of the csv file (`-t`)
+```bash
+python data_frame_cli.py chicken.csv -t
+
+*** df.shape ***
+
+chicken.csv loaded with shape (360, 5)
+
+*** df.head() ***
+
+   week  age diet  weight  eggs
+0     0  147    A  3106.2     4
+1     0  157    A  2891.7     5
+2     0  163    A  2958.3     4
+3     0  145    A  3188.7     5
+4     0  162    A  3491.7     5
+```
+
+![Example Screenshot](head_screenshot.png)
+
+## Printing statistics of all numerical columns (`-d`)
+```bash
+python data_frame_cli.py chicken.csv -d
+
+*** df.shape ***
+
+chicken.csv loaded with shape (360, 5)
+
+*** df.describe() ***
+
+             week         age       weight        eggs
+count  360.000000  360.000000   360.000000  360.000000
+mean    11.000000  179.266667  3467.327778    4.230556
+std      6.913714   17.386833   425.962265    0.671472
+min      0.000000  135.000000  2383.300000    3.000000
+25%      5.500000  167.000000  3165.500000    4.000000
+50%     11.000000  178.000000  3440.950000    4.000000
+75%     16.500000  193.000000  3754.775000    5.000000
+max     22.000000  217.000000  4845.000000    5.000000
+```
+
+![Example Screenshot](describe_no_argument.png)
+
+
+## Printing statistics of a single column (`-d column_name`)
+```bash
+python data_frame_cli.py chicken.csv -d diet
+
+*** df.shape ***
+
+chicken.csv loaded with shape (360, 5)
+
+*** df[diet].describe() ***
+
+count     360
+unique      3
+top         B
+freq      120
+Name: diet, dtype: object
+```
+
+![Example Screenshot](describe_argument.png)
+
+# Test results
+
+![Example Screenshot](test.png)
 
 # Reflection
-What I liked most about this project was the idea of taking example texts and finding out any important information we need about it. This shows that we can also apply filters to pieces of text to find keywords or any other information. Something I found interesting was the tests themselves, as it shows that we can take a test of our program and see where it goes wrong or works rather than running the actual program and hoping for the best.
+
+This assignment was helpful in learning how to take arguments from the command line and use the value from them to complete other functions that use them.
+By doing this, it shows that you can use user input for multiple purposes and shows how important and helpful they can be. I liked this assignment and 
+felt that I learned a lot from it.
+
+
 
